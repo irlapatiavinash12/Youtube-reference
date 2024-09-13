@@ -4,7 +4,19 @@ import Loader from 'react-loader-spinner'
 import {FaSearch} from 'react-icons/fa'
 import {AiOutlineClose} from 'react-icons/ai'
 import AppContext from '../../Context/AppContext'
-import {HomeBanner, BelowHeaderContainer} from './styledComponents'
+import {
+  HomeBanner,
+  BelowHeaderContainer,
+  VideosSection,
+  HomeBannerTopSection,
+  LogoIcon,
+  HomeBannerBottomSection,
+  PrimeDescription,
+  UserInput,
+  SearchButton,
+  GetItButtonNow,
+  VideosList,
+} from './styledComponents'
 import Header from '../Header'
 import Sidebar from '../Sidebar'
 import HomeVideoList from '../HomeVideoList'
@@ -92,11 +104,11 @@ class Home extends Component {
             </button>
           </div>
         ) : (
-          <ul>
+          <VideosList>
             {videosListHome.map(each => (
               <HomeVideoList homeVideoList={each} key={each.id} />
             ))}
-          </ul>
+          </VideosList>
         )}
       </div>
     )
@@ -153,43 +165,50 @@ class Home extends Component {
                 className="below-header-container"
               >
                 <Sidebar />
-                <div>
+                <VideosSection>
                   {showBanner ? (
                     <HomeBanner data-testid="banner">
-                      <img
-                        src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
-                        alt="nxt watch logo"
-                      />
-                      <button
-                        type="button"
-                        data-testid="close"
-                        onClick={this.bannerStatus}
-                      >
-                        <AiOutlineClose />
-                        ''
-                      </button>
-                      <p>Buy Nxt Watch Premium plans with UPI</p>
-                      <button type="button">GET IT NOW</button>
+                      <HomeBannerTopSection>
+                        <LogoIcon
+                          src="https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png"
+                          alt="nxt watch logo"
+                        />
+                        <button
+                          type="button"
+                          data-testid="close"
+                          onClick={this.bannerStatus}
+                        >
+                          {' '}
+                          <AiOutlineClose />
+                        </button>
+                      </HomeBannerTopSection>
+                      <HomeBannerBottomSection>
+                        <PrimeDescription>
+                          Buy Nxt Watch Premium plans with UPI
+                        </PrimeDescription>
+                        <GetItButtonNow type="button">
+                          GET IT NOW
+                        </GetItButtonNow>
+                      </HomeBannerBottomSection>
                     </HomeBanner>
                   ) : null}
                   <div>
-                    <input
+                    <UserInput
                       type="search"
                       placeholder="Search"
                       value={searchInputVal}
                       onChange={this.onSearchInput}
                     />
-                    <button
+                    <SearchButton
                       type="button"
                       onClick={this.onTryAgain}
                       data-testid="searchButton"
                     >
-                      <FaSearch />
-                      ''
-                    </button>
+                      <FaSearch color={lightTheme ? '#000000' : '#ffffff'} />
+                    </SearchButton>
                   </div>
                   {this.renderPortView()}
-                </div>
+                </VideosSection>
               </BelowHeaderContainer>
             </div>
           )

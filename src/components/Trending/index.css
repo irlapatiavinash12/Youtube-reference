@@ -1,0 +1,5 @@
+
+.trending-direction{
+    display:flex;
+    flex-direction: row;
+}

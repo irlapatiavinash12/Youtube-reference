@@ -2,11 +2,18 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
+import {FaGamepad} from 'react-icons/fa'
 import Header from '../Header'
 import Sidebar from '../Sidebar'
 import GameVideoList from '../GameVideoList'
 import AppContext from '../../Context/AppContext'
-import {MainContainer} from './styledComponents'
+import {
+  MainContainer,
+  BelowHeaderContainer,
+  GamingHeadingElement,
+  GamingListContainer,
+  GamesSection,
+} from './styledComponents'
 
 const callStatusCodes = {
   loading: 'LOADING',
@@ -77,11 +84,11 @@ class Gaming extends Component {
             </button>
           </div>
         ) : (
-          <ul>
+          <GamingListContainer>
             {videosListHome.map(each => (
               <GameVideoList homeVideoList={each} key={each.id} />
             ))}
-          </ul>
+          </GamingListContainer>
         )}
       </div>
     )
@@ -131,13 +138,18 @@ class Gaming extends Component {
           return (
             <MainContainer lightTheme={lightTheme} data-testid="gaming">
               <Header />
-              <div className="below-header-container">
+              <BelowHeaderContainer className="below-header-container">
                 <Sidebar />
-                <div>
-                  <h1>Gaming</h1>
+                <GamesSection>
+                  <GamingHeadingElement lightTheme={lightTheme}>
+                    {' '}
+                    <FaGamepad color="#ff0b37" />
+                    {'  '}
+                    Gaming
+                  </GamingHeadingElement>
                   {this.renderPortView()}
-                </div>
-              </div>
+                </GamesSection>
+              </BelowHeaderContainer>
             </MainContainer>
           )
         }}

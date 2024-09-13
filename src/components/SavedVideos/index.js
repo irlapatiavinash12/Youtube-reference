@@ -1,13 +1,21 @@
+import {FaFire} from 'react-icons/fa'
 import Header from '../Header'
 import Sidebar from '../Sidebar'
 import SavedVideosList from '../SavedVideosList'
 import AppContext from '../../Context/AppContext'
-import {MainContainer, ListContainer} from './styledComponents'
+import {
+  SavedVideosBelowHeaderContainer,
+  MainContainer,
+  ListContainer,
+  NoSavedVideosContainer,
+  NosavedImage,
+  SavedHeadingElement,
+} from './styledComponents'
 
 const SavedVideos = () => (
   <div>
     <Header />
-    <div className="below-header-container">
+    <SavedVideosBelowHeaderContainer>
       <Sidebar />
       <AppContext.Consumer>
         {value => {
@@ -16,26 +24,29 @@ const SavedVideos = () => (
             <MainContainer lightTheme={lightTheme} data-testid="savedVideos">
               {savedList.length > 0 ? (
                 <ListContainer>
-                  <h1>Saved Videos</h1>
+                  <SavedHeadingElement>
+                    {' '}
+                    <FaFire color="#ff0b37" /> Saved Videos
+                  </SavedHeadingElement>
                   {savedList.map(each => (
                     <SavedVideosList homeVideoList={each} key={each.id} />
                   ))}
                 </ListContainer>
               ) : (
-                <div>
-                  <img
+                <NoSavedVideosContainer>
+                  <NosavedImage
                     src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
                     alt="no saved videos"
                   />
                   <h1>No Saved Videos found</h1>
                   <p>You can save your videos while watching them</p>
-                </div>
+                </NoSavedVideosContainer>
               )}
             </MainContainer>
           )
         }}
       </AppContext.Consumer>
-    </div>
+    </SavedVideosBelowHeaderContainer>
   </div>
 )
 export default SavedVideos

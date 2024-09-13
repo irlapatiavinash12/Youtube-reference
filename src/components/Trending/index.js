@@ -1,12 +1,19 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
+import {FaFire} from 'react-icons/fa'
 import AppContext from '../../Context/AppContext'
 
 import Header from '../Header'
 import Sidebar from '../Sidebar'
 import HomeVideoList from '../HomeVideoList'
-import {MainContainer, ListContainer} from './styledComponents'
+import {
+  TrendingHeaderBelowContainer,
+  MainContainer,
+  HeadingElement,
+  ListContainer,
+} from './styledComponents'
+import './index.css'
 
 const callStatusCodes = {
   loading: 'LOADING',
@@ -134,13 +141,16 @@ class Trending extends Component {
           return (
             <div>
               <Header />
-              <div className="below-header-container">
+              <TrendingHeaderBelowContainer>
                 <Sidebar />
                 <MainContainer lightTheme={lightTheme} data-testid="trending">
-                  <h1>Trending</h1>
+                  <HeadingElement lightTheme={lightTheme}>
+                    {' '}
+                    <FaFire color="#ff0b37" backgroundColor="black" /> Trending
+                  </HeadingElement>
                   {this.renderPortView()}
                 </MainContainer>
-              </div>
+              </TrendingHeaderBelowContainer>
             </div>
           )
         }}

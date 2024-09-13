@@ -3,7 +3,19 @@ import Cookies from 'js-cookie'
 import {Redirect} from 'react-router-dom'
 import AppContext from '../../Context/AppContext'
 
-import {LoginButton, MainContainer} from './styledComponents'
+import {
+  LoginButton,
+  MainContainer,
+  LoginContainer,
+  CompanyLogo,
+  FormContainer,
+  UserNameInputContainer,
+  UserPasswordInputContainer,
+  LabelStyling,
+  InputStyling,
+  ShowPasswordLabel,
+  ErrorMsg,
+} from './styledComponents'
 
 class Login extends Component {
   state = {
@@ -63,48 +75,56 @@ class Login extends Component {
       <AppContext.Consumer>
         {value => {
           const {lightTheme} = value
+          console.log(lightTheme)
           const webLogo = lightTheme
             ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
             : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
           return (
-            <MainContainer>
-              <div>
-                <img src={webLogo} alt="website logo" />
-                <div>
-                  <form onSubmit={this.onSubmitForm}>
-                    <div>
-                      <label htmlFor="username">USERNAME</label>
-                      <input
-                        type="text"
-                        id="username"
-                        onChange={this.inputUsername}
-                        value={username}
-                        placeholder="Username"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="password">PASSWORD</label>
-                      <input
-                        type={inputType}
-                        id="password"
-                        onChange={this.inputPassword}
-                        value={password}
-                        placeholder="Password"
-                      />
-                    </div>
-                    <div>
-                      <input
-                        type="checkbox"
-                        id="checkbox"
-                        onChange={this.checkboxChange}
-                      />
-                      <label htmlFor="checkbox">Show Password</label>
-                    </div>
-                    {showLoginError && <p>*{error}</p>}
-                    <LoginButton type="submit">Login</LoginButton>
-                  </form>
-                </div>
-              </div>
+            <MainContainer lightTheme={lightTheme}>
+              <LoginContainer lightTheme={lightTheme}>
+                <CompanyLogo src={webLogo} alt="website logo" />
+                <FormContainer onSubmit={this.onSubmitForm}>
+                  <UserNameInputContainer>
+                    <LabelStyling htmlFor="username" lightTheme={lightTheme}>
+                      USERNAME
+                    </LabelStyling>
+                    <InputStyling
+                      type="text"
+                      id="username"
+                      onChange={this.inputUsername}
+                      value={username}
+                      placeholder="Username"
+                    />
+                  </UserNameInputContainer>
+                  <UserPasswordInputContainer>
+                    <LabelStyling htmlFor="password" lightTheme={lightTheme}>
+                      PASSWORD
+                    </LabelStyling>
+                    <InputStyling
+                      type={inputType}
+                      id="password"
+                      onChange={this.inputPassword}
+                      value={password}
+                      placeholder="Password"
+                    />
+                  </UserPasswordInputContainer>
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="checkbox"
+                      onChange={this.checkboxChange}
+                    />
+                    <ShowPasswordLabel
+                      htmlFor="checkbox"
+                      lightTheme={lightTheme}
+                    >
+                      Show Password
+                    </ShowPasswordLabel>
+                  </div>
+                  {showLoginError && <ErrorMsg>*{error}</ErrorMsg>}
+                  <LoginButton type="submit">Login</LoginButton>
+                </FormContainer>
+              </LoginContainer>
             </MainContainer>
           )
         }}

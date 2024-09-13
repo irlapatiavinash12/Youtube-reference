@@ -7,11 +7,22 @@ import AppContext from '../../Context/AppContext'
 import Header from '../Header'
 import Sidebar from '../Sidebar'
 import {
+  VideoDetailBelowHeaderContainer,
+  VideoSpecificSection,
+  VideoSpecificContainer,
+  VideoSection,
   MainContainer,
+  VideoDescriptionContents,
+  ViewsAndPublishedDate,
   ActiveButton,
   SavedButton,
   SaveButton,
+  ProfileSection,
+  ChannelLogo,
+  ProfileSectionDescription,
 } from './styledComponents'
+
+import './index.css'
 
 const callStatusCodes = {
   loading: 'LOADING',
@@ -116,42 +127,61 @@ class VideoDetails extends Component {
         }
         return (
           <MainContainer data-testid="videoItemDetails" lightTheme={lightTheme}>
-            <div className="video-container">
-              <h1 className="heading">Video Player</h1>
-              <div className="responsive-container">
-                <ReactPlayer url={videoUrl} playing={isPlaying} />
-                <img src={channelProfileImg} alt="channel logo" />
+            <VideoSpecificContainer>
+              <VideoSection>
+                <ReactPlayer
+                  url={videoUrl}
+                  playing={isPlaying}
+                  className="react-player-styling"
+                  controls
+                />
                 <p>{title}</p>
-                <p>{viewCount}</p>
-                <p>{publishedAt}</p>
-                <p>{channelName}</p>
-                <p>{subscriberCount}</p>
-                <p>{description}</p>
-                <ActiveButton
-                  type="button"
-                  onClick={this.changeActiveLike}
-                  value={isLiked}
-                >
-                  Like
-                </ActiveButton>
-                <ActiveButton
-                  type="button"
-                  onClick={this.changeActiveDislike}
-                  value={isDisliked}
-                >
-                  Dislike
-                </ActiveButton>
-                {isExisting ? (
-                  <SavedButton type="button" onClick={onRemove}>
-                    Saved
-                  </SavedButton>
-                ) : (
-                  <SaveButton type="button" onClick={addVideo}>
-                    Save
-                  </SaveButton>
-                )}
-              </div>
-            </div>
+                <VideoDescriptionContents>
+                  <ViewsAndPublishedDate>
+                    <p>
+                      {viewCount} Views {'.  '}
+                    </p>
+                    <p>{publishedAt}</p>
+                  </ViewsAndPublishedDate>
+                  <div>
+                    <ActiveButton
+                      type="button"
+                      onClick={this.changeActiveLike}
+                      value={isLiked}
+                    >
+                      Like
+                    </ActiveButton>
+                    <ActiveButton
+                      type="button"
+                      onClick={this.changeActiveDislike}
+                      value={isDisliked}
+                    >
+                      Dislike
+                    </ActiveButton>
+                    {isExisting ? (
+                      <SavedButton type="button" onClick={onRemove}>
+                        Saved
+                      </SavedButton>
+                    ) : (
+                      <SaveButton type="button" onClick={addVideo}>
+                        Save
+                      </SaveButton>
+                    )}
+                  </div>
+                </VideoDescriptionContents>
+                <hr />
+                <ProfileSection>
+                  <ChannelLogo src={channelProfileImg} alt="channel logo" />
+                  <ProfileSectionDescription>
+                    <div>
+                      <p>{channelName}</p>
+                      <p>{subscriberCount}</p>
+                    </div>
+                    <p>{description}</p>
+                  </ProfileSectionDescription>
+                </ProfileSection>
+              </VideoSection>
+            </VideoSpecificContainer>
           </MainContainer>
         )
       }}
@@ -200,10 +230,10 @@ class VideoDetails extends Component {
     return (
       <>
         <Header />
-        <div className="below-header-container">
+        <VideoDetailBelowHeaderContainer>
           <Sidebar />
-          <div>{this.renderPortView()}</div>
-        </div>
+          <VideoSpecificSection>{this.renderPortView()}</VideoSpecificSection>
+        </VideoDetailBelowHeaderContainer>
       </>
     )
   }

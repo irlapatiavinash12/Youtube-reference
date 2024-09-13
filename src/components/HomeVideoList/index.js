@@ -1,4 +1,19 @@
 import {Link} from 'react-router-dom'
+
+import {formatDistanceToNow} from 'date-fns'
+
+import {
+  ListContainer,
+  ThumbnailContainer,
+  ThumbnailImage,
+  ThumbnailDescriptionContainer,
+  ChannelIcon,
+  ChannelDesignation,
+  PublishedContainer,
+} from './styledComponents'
+
+import './index.css'
+
 // import {formatDistanceToNow} from 'date-fns'
 
 const HomeVideoList = props => {
@@ -12,6 +27,16 @@ const HomeVideoList = props => {
     published,
     views,
   } = homeVideoList
+  const displayTime = formatDistanceToNow(new Date(published), {
+    addSuffix: true,
+  })
+  const removeUselessWords = txt => {
+    const uselessWordsArray = ['almost', 'about', 'over']
+
+    const expStr = uselessWordsArray.join('\\b|\\b')
+    return txt.replace(new RegExp(expStr, 'gi'), '').trim().replace(/ +/g, ' ')
+  }
+  const actualTime = removeUselessWords(displayTime)
   /*   const displayTime = formatDistanceToNow(new Date(published), {
     addSuffix: true,
   })
@@ -24,22 +49,26 @@ const HomeVideoList = props => {
   const actualTime = removeUselessWords(displayTime) */
 
   return (
-    <li>
-      <Link to={`/videos/${id}`}>
-        <div>
-          <img src={thumbnail} alt="video thumbnail" />
-          <div>
-            <img src={channelImage} alt="channel logo" />
-            <p>{title}</p>
-            <p>{ChannelName}</p>
+    <ListContainer>
+      <Link to={`/videos/${id}`} className="thumbnail-link-styling">
+        <ThumbnailContainer>
+          <ThumbnailImage src={thumbnail} alt="video thumbnail" />
+          <ThumbnailDescriptionContainer>
+            <ChannelIcon src={channelImage} alt="channel logo" />
             <div>
-              <p>{views}</p>
-              <p>{published}</p>
+              <p>{title}</p>
+              <ChannelDesignation>{ChannelName}</ChannelDesignation>
+              <PublishedContainer>
+                <p>
+                  {views} views {' . '}
+                </p>
+                <p>{actualTime}</p>
+              </PublishedContainer>
             </div>
-          </div>
-        </div>
+          </ThumbnailDescriptionContainer>
+        </ThumbnailContainer>
       </Link>
-    </li>
+    </ListContainer>
   )
 }
 export default HomeVideoList

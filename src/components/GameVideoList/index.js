@@ -1,14 +1,18 @@
 import {Link} from 'react-router-dom'
 
+import './index.css'
+
+import {GameListItem, GameThumbNail} from './styledComponents'
+
 const GameVideoList = props => {
   const {homeVideoList} = props
   const {id, thumbnail, title, views} = homeVideoList
 
   return (
-    <li>
-      <Link to={`/videos/${id}`}>
+    <GameListItem>
+      <Link to={`/videos/${id}`} className="game-routing-styling">
         <div>
-          <img src={thumbnail} alt="video thumbnail" />
+          <GameThumbNail src={thumbnail} alt="video thumbnail" />
           <div>
             <p>{title}</p>
             <div>
@@ -17,7 +21,7 @@ const GameVideoList = props => {
           </div>
         </div>
       </Link>
-    </li>
+    </GameListItem>
   )
 }
 export default GameVideoList

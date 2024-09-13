@@ -5,7 +5,14 @@ import {FaMoon} from 'react-icons/fa'
 import {BiSun} from 'react-icons/bi'
 import Popup from 'reactjs-popup'
 import AppContext from '../../Context/AppContext'
-import {HeaderMain, WebsiteLogo} from './styledComponents'
+import {
+  HeaderMain,
+  WebsiteLogo,
+  LogoutContainer,
+  LogoutButtons,
+  ConfirmButton,
+  CancelButton,
+} from './styledComponents'
 
 import 'reactjs-popup/dist/index.css'
 import './index.css'
@@ -52,38 +59,39 @@ class Header extends Component {
                   alt="profile"
                   className="profile-img"
                 />
-                <div className="popup-container">
-                  <Popup
-                    modal
-                    trigger={
-                      <button type="button" className="logout-button-large">
-                        Logout
-                      </button>
-                    }
-                  >
-                    {close => (
-                      <>
-                        <div>
-                          <p>Are you sure, you want to logout?</p>
-                        </div>
-                        <button
+
+                <Popup
+                  modal
+                  trigger={
+                    <button type="button" className="logout-button-large">
+                      Logout
+                    </button>
+                  }
+                >
+                  {close => (
+                    <LogoutContainer>
+                      <div>
+                        <p>Are you sure, you want to logout?</p>
+                      </div>
+                      <LogoutButtons>
+                        <CancelButton
                           type="button"
                           className="trigger-button"
                           onClick={() => close()}
                         >
                           Cancel
-                        </button>
-                        <button
+                        </CancelButton>
+                        <ConfirmButton
                           type="button"
                           className="logout-button-large"
                           onClick={this.executeLogout}
                         >
                           Confirm
-                        </button>
-                      </>
-                    )}
-                  </Popup>
-                </div>
+                        </ConfirmButton>
+                      </LogoutButtons>
+                    </LogoutContainer>
+                  )}
+                </Popup>
               </div>
             </HeaderMain>
           )
